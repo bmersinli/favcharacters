@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 
 import 'detailspage.dart';
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
@@ -73,8 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         elevation: 0,
         foregroundColor: Colors.black45,
-          backgroundColor: Colors.transparent,
-          title: const Text("My Favorite Characters of All Time")),
+        backgroundColor: Colors.transparent,
+        title: const Text(
+          "My Favorite Characters of All Time",
+          style: TextStyle(color: Colors.purple),
+        ),
+      ),
       body: FutureBuilder<List<Chars>>(
         future: showChars(),
         builder: (context, snapshot) {
@@ -91,27 +95,49 @@ class _MyHomePageState extends State<MyHomePage> {
                 var char = charsList[index];
 
                 return GestureDetector(
-                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(char: char,),),);},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsPage(
+                          char: char,
+                        ),
+                      ),
+                    );
+                  },
                   child: Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset("images/${char.char_pic_name}"),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.purple,
+                            Colors.brown,
+                            Colors.white70,
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
-                        Text(
-                          char.char_name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset("images/${char.char_pic_name}"),
                           ),
-                        ),
-                      ],
+                          Text(
+                            char.char_name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
-
                     ),
                   ),
                 );
